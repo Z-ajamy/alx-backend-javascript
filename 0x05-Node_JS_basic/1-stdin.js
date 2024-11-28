@@ -1,16 +1,13 @@
-// Display a welcome message
-console.log("Welcome to Holberton School, what is your name?");
+process.stdout.write('Welcome to Holberton School, what is your name?\n');
 
-// Listen for user input
-process.stdin.on('data', (data) => {
-  const name = data.toString().trim(); // Get user input and remove extra spaces
-  console.log(`Your name is: ${name}`); // Output the user's name
+process.stdin.on('readable', () => {
+  const chunk = process.stdin.read();
 
-  // Close the input stream and exit
-  process.stdin.end();
+  if (chunk) {
+    process.stdout.write(`Your name is: ${chunk}`);
+  }
 });
 
-// Handle the closing of the input stream
 process.stdin.on('end', () => {
-  console.log("This important software is now closing");
+  process.stdout.write('This important software is now closing\n');
 });
